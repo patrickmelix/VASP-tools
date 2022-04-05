@@ -5,11 +5,12 @@ My collection of tools for pre- and post-processing VASP calculations. Mainly Py
 Different for each script, but mainly
 - [ASE](https://wiki.fysik.dtu.dk/ase/)
 - [VTST](http://theory.cm.utexas.edu/vtsttools/)
+- [Pymatgen](https://pymatgen.org/)
 
 ## Pre-Processing
 
 ## Post-Processing
-- chgcar2cube.sh: Wrapper script for TST chg2cube.sh script. Uses the information of the POSCAR to run the TST script.
+- chgcar2cube.py: Convert CHGCAR-like files to cube files using Pymatgen and ASE.
 - neb2movie.py: Convert VASP NEB to ASE ext-xyz movie, just like nebmovie.pl of VTST.
 - poscar2nbands.py: Helper to get the NBANDS value for LOBSTER calculations using the current POSCAR, INCAR and POTCAR setup with 'standard' options.
 - vasp2traj.py: Convert VASP geometry optimization output to ASE compatible ext-xyz trajectory file.

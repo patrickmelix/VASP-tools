@@ -5,11 +5,16 @@ import subprocess
 import numpy as np
 exec(open("/home/patrickm/git/Python4ChemistryTools/mpl-settings.py").read())
 
-files = natsorted(glob.glob('**/vasprun.xml', recursive=True))
+files = natsorted(glob.glob('./*/vasprun.xml', recursive=True))
+if os.path.isfile('./vasprun.xml'):
+    files.append('./vasprun.xml')
 data = []
 
 for f in files:
     folder = os.path.dirname(os.path.abspath(f))
+    if (not os.path.basename(folder).isdigit()) and (not os.path.realpath(folder) == os.path.realpath(os.getcwd())):
+        print("Not using {}".format(folder))
+        continue
     if os.path.isfile(os.path.join(folder,'fe.dat')):
         print("Adding {}".format(folder))
     else:
@@ -18,12 +23,18 @@ for f in files:
         p.wait()
         assert os.path.isfile(os.path.join(folder,'fe.dat')), "Problem running vef.py in {:}".format(folder)
     data.append(np.loadtxt(os.path.join(folder,'fe.dat')))
+    print("Found {} values".format(len(data[-1])))
 combined = {}
 combined['force'] = []
 combined['energy'] = []
 for d in data:
-    combined['force'].extend(d[:,1].tolist())
-    combined['energy'].extend(d[:,2].tolist())
+    # filter one entry runs
+    if d.shape == (4,):
+        combined['force'].append(d[1])
+        combined['energy'].append(d[2])
+    else:
+        combined['force'].extend(d[:,1].tolist())
+        combined['energy'].extend(d[:,2].tolist())
 nItems = len(combined['force'])
 with open('fe-combined.json','w') as f:
     json.dump(combined, f)

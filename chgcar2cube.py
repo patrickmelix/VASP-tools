@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Script to calculate the integral of one or multiple cube file
+# Script to convert CHGCAR files to cube files and convert to e-/Ang^3
 # by Patrick Melix
 # 2022/04/04
 #
@@ -84,7 +84,7 @@ def main(inFiles, outFiles, verbose=True, return_integrals=False, return_spin_in
             if return_spin_integrals: return integrals[0], spin_integrals[0]
             else: return integrals[0]
         else:
-            if return_spin_integrals: return integrals, spinpol
+            if return_spin_integrals: return integrals, spin_integrals
             else: return integrals
     else:
         return
@@ -93,10 +93,11 @@ def main(inFiles, outFiles, verbose=True, return_integrals=False, return_spin_in
 
 if __name__ == "__main__":
     import argparse
-    parser = argparse.ArgumentParser(description='Sum up cube files')
+    parser = argparse.ArgumentParser(description='Convert one or many CHGCAR-like files to cube format.')
     parser.add_argument('input', type=str, nargs='+', help='Input Files')
     parser.add_argument('-output', type=str, nargs='+', help='Output File Names (no extension)')
     parser.add_argument('-v', help='Verbose', action='store_true')
+    parser.add_argument('--integral', help='Print Integrals', action='store_true')
     parser.add_argument('--volume', help='Multiply the Density with the Cell Volume', action='store_true')
     args = parser.parse_args()
-    main(args.input, args.output, verbose=args.v, mult_volume=args.volume)
+    main(args.input, args.output, verbose=args.v, return_integrals=args.integral, mult_volume=args.volume)

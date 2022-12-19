@@ -1,15 +1,20 @@
-# VASP-tools
+# Discontinued
+
+**Developement continues [here](https://github.com/Tonner-Zech-Group/VASP-tools/tree/main).** 
+
+
+## VASP-tools
 My collection of tools for pre- and post-processing VASP calculations. Mainly Python and Bash.
 
-## Dependencies
+### Dependencies
 Different for each script, but mainly
 - [ASE](https://wiki.fysik.dtu.dk/ase/)
 - [VTST](http://theory.cm.utexas.edu/vtsttools/)
 - [Pymatgen](https://pymatgen.org/)
 
-## Pre-Processing
+### Pre-Processing
 
-## Post-Processing
+### Post-Processing
 - chgcar2cube.py: Convert CHGCAR-like files to cube files using Pymatgen and ASE.
 - neb2movie.py: Convert VASP NEB to ASE ext-xyz movie, just like nebmovie.pl of VTST.
 - poscar2nbands.py: Helper to get the NBANDS value for LOBSTER calculations using the current POSCAR, INCAR and POTCAR setup with 'standard' options.
